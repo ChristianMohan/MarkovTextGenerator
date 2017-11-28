@@ -37,7 +37,14 @@ namespace MarkovTextGenerator
         public void AddString (String sentence)
         {
             // TODO: Break sentence up into word pairs
+            sentence = new string(sentence.Where(c => !char.IsPunctuation(c)).ToArray());
+            string[] words = sentence.Split(' ');
             // TODO: Add each word pair to the chain
+            for(int i = 0; i < words.Length; i++)
+            {
+                AddPair(words[i], words[i + 1]);
+            }
+            AddPair(words[words.Length], "");
         }
 
         // Adds a pair of words to the chain that will appear in order
